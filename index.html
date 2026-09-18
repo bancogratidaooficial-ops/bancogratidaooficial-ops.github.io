@@ -1,0 +1,230 @@
+[18/09, 17:32] Aline: <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gratidão V71.2</title>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2263470788888608" crossorigin="anonymous"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#111;color:#fff;font-family:Arial,sans-serif;padding-bottom:90px}
+header{background:#000;border-bottom:2px solid #ffcc00;padding:12px;position:sticky;top:0;z-index:100}
+.top-row{display:flex;align-items:center;justify-content:space-between}
+.top-row h1{color:#ffcc00;font-size:22px}
+.btn{padding:10px 16px;border:none;border-radius:12px;font-weight:bold;cursor:pointer}
+.btn-green{background:#22c55e;color:#fff}
+.btn-white{background:#fff;color:#000}
+.btn-yellow{background:#ffcc00;color:#000}
+.search-row{display:flex;gap:8px;margin-top:10px}
+.search-row input{flex:1;padding:12px;border-radius:12px;border:none;background:#222;color:#fff}
+.action-row{display:flex;gap:8px;margin-top:10px}
+.ad-box{margin:15px;border:1px dashed #555;border-radius:12px;min-height:100px;display:flex;align-items:center;justify-content:center;background:#1a1a1a;color:#666;font-size:12px}
+footer{position:fixed;bottom:0;left:0;right:0;background:#000;border-top:2px solid #ffcc00;padding:8px;display:flex;gap:6px;overflow-x:auto}
+.fab{position:fixed;bottom:100px;right:15px;width:62px;height:62px;border-radius:50%;background:#ffcc00;border:none;font-size:32px;z-index:200}
+.fab-label{position:fixed;bottom:70px;right:15px;background:#ffcc00;color:#000;padding:4px 10px;border-radius:10px;font-weight:bold;font-size:12px;z-index:200}
+</style>
+</head>
+<body>
+<header>
+<div class="top-row">
+<h1>G GRATIDÃO V71 🤖</h1>
+<button class="btn btn-yellow" onclick="abrirIA()">🤖 IA</button>
+</div>
+<div class="search-row">
+<input id="pesquisa" type="text" placeholder="Pesquisar..." oninput="filtrar()">
+<button class="btn btn-yellow" onclick="filtrar()">🔍</button>
+</div>
+<div class="action-row">
+<button class="btn btn-green" onclick="convidar()">📲 Convidar</button>
+<button class="btn btn-white" onclick="apoiar()">⭐ Apoiar</button>
+<button class="btn btn-yellow" onclick="abrirIA()">🤖 IA</button>
+</div>
+</header>
+
+<div class="ad-box">Espaço de Anúncio</div>
+<div id="lista" style="padding:0 15px"></div>
+<div class="ad-box">Espaço de Anúncio</div>
+
+<button class="fab" onclick="abrirIA()">🤖</button>
+<div class="fab-label">Apoiar</div>
+
+<footer>
+<button class="btn btn-green" onclick="abrirMemoria()">📄 MEMÓRIA</button>
+<button class="btn" style="background:#5aa9e6;color:#fff" onclick="abrirLink()">🔗 LINK</button>
+<button class="btn btn-yellow" onclick="abrirGenero()">+ GÊNERO</button>
+<button class="btn" style="background:#ff9500;color:#fff" onclick="fileBackup()">💾 BACKUP</button>
+<button class="btn" style="background:#ef4444;color:#fff" onclick="resetar()">🗑️ RESET</button>
+</footer>
+
+<div id="modalIA" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;padding:20px;overflow:auto">
+<div style="background:#222;padding:20px;border-radius:15px;max-width:500px;margin:30px auto;border:2px solid #ffcc00">
+<h2 style="color:#ffcc00">🤖 IA da Gratidão</h2>
+<input id="perguntaIA" type="text" placeholder="Pergunte algo..." style="width:100%;padding:12px;border-radius:10px;border:none;background:#111;color:#fff;margin-top:12px">
+<div style="display:flex;gap:10px;margin-top:12px">
+<button class="btn btn-yellow" onclick="perguntarIA()" style="flex:1">Perguntar</button>
+<button class="btn btn-white" onclick="fecharIA()" style="flex:1">Fechar</button>
+</div>
+<div id="respostaIA" style="margin-top:12px;background:#111;padding:12px;border-radius:10px;min-height:40px"></div>
+</div>
+</div>
+
+<div id="modalMemoria" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;padding:20px;overflow:auto">
+<div style="background:#222;padding:20px;border-radius:15px;max-width:500px;margin:30px auto">
+<h2>📄 Memória</h2>
+<div id="conteudoMemoria" style="margin-top:12px"></div>
+<button class="btn btn-white" onclick="document.getElementById('modalMemoria').style.display='none'" style="width:100%;margin-top:12px">Fechar</button>
+</div>
+</div>
+
+<script>
+let banco = JSON.parse(localStorage.getItem('bancoGratidao_V71') || '[]');
+function salvarBanco(){ localStorage.setItem('bancoGratidao_V71', JSON.stringify(banco)); }
+function renderizar(){
+let lista = document.getElementById('lista');
+if(banco.length===0){
+lista.innerHTML = `<div style="text-align:center;padding:25px;background:#222;border-radius:12px;margin-top:15px"><h3 style="color:#ffcc00">🙏 Seu Banco está vazio</h3><p style="margin-top:8px">Clique em + GÊNERO</p><button class="btn btn-yellow" onclick="abrirGenero()" style="margin-top:12px">+ Adicionar</button></div>`;
+return;
+}
+let html='';
+banco.slice().reverse().forEach((item,iR)=>{
+let i = banco.length-1-iR;
+html+=`<div style="background:#222;padding:12px;border-radius:10px;margin-bottom:10px;border-left:4px solid #ffcc00"><div style="display:flex;justify-content:space-between"><b style="color:#ffcc00">${item.genero}</b><small>${item.data}</small></div><p style="margin-top:6px">${item.texto}</p><button onclick="removerItem(${i})" style="margin-top:6px;background:#ef4444;color:#fff;border:none;padding:4px 8px;border-radius:6px">Apagar</button></div>`;
+});
+lista.innerHTML=html;
+}
+function removerItem(i){ if(confirm('Apagar?')){ banco.splice(i,1); salvarBanco(); renderizar(); } }
+function filtrar(){
+let t=document.getElementById('pesquisa').value.toLowerCase();
+if(t===''){renderizar();return;}
+let f=banco.filter(b=>b.texto.toLowerCase().includes(t)||b.genero.toLowerCase().includes(t));
+let lista=document.getElementById('lista');
+lista.innerHTML=f.reverse().map(b=>`<div style="background:#222;padding:12px;border-radius:10px;margin-bottom:10px"><b style="color:#ffcc00">${b.genero}</b><p>${b.texto}</p></div>`).join('')||'<p style="text-align:center;padding:20px">Nada encontrado</p>';
+}
+function abrirGenero(){
+let g=prompt('Gênero? Ex: Família, Saúde, Deus');
+if(!g)return;
+let txt=prompt('Sua gratidão de '+g+':');
+if(!txt)return;
+banco.push({genero:g,texto:txt,data:new Date().toLocaleDateString('pt-BR')});
+salvarBanco();renderizar();
+}
+function abrirMemoria(){
+let m=document.getElementById('modalMemoria');
+let c=document.getElementById('conteudoMemoria');
+c.innerHTML=`<p>Total: <b>${banco.length}</b></p>`+banco.map(b=>`<div style="padding:6px;border-bottom:1px solid #333"><b>${b.genero}</b>: ${b.texto}</div>`).join('');
+m.style.display='block';
+}
+function abrirLink(){ let l=prompt('Cole o link:'); if(l) alert('Link: '+l); }
+function fileBackup(){
+let dados=JSON.stringify(banco,null,2);
+let blob=new Blob([dados],{type:"application/json"});
+let url=URL.createObjectURL(blob);
+let a=document.createElement("a");
+a.href=url;a.download="backup-gratidao.json";a.click();
+}
+function resetar(){ if(confirm('Apagar TUDO?')){banco=[];salvarBanco();renderizar();} }
+function convidar(){ let u=window.location.href; if(navigator.share){navigator.share({title:'Banco Gratidão',url:u});}else{prompt('Copie:',u);} }
+function apoiar(){ alert('Obrigado pelo apoio! 🙏 Deus abençoe!'); }
+function abrirIA(){document.getElementById('modalIA').style.display='block';}
+function fecharIA(){document.getElementById('modalIA').style.display='none';}
+function perguntarIA(){
+let p=document.getElementById('perguntaIA').value;
+let r=document.getElementById('respostaIA');
+if(!p){r.innerHTML='Escreva algo!';return;}
+r.innerHTML='🤖 Pensando...';
+setTimeout(()=>{r.innerHTML=`✨ Sobre "${p}": Agradeça hoje por 3 coisas simples que você tem. Qual será a primeira? 🙏`;},800);
+}
+renderizar();
+</script>
+</body>
+</html>
+[18/09, 17:33] Aline: <footer>
+<button class="btn btn-green" onclick="abrirMemoria()">📄 MEMÓRIA</button>
+<button class="btn" style="background:#5aa9e6;color:#fff" onclick="abrirLink()">🔗 LINK</button>
+<button class="btn btn-yellow" onclick="abrirGenero()">+ GÊNERO</button>
+<button class="btn" style="background:#ff9500;color:#fff" onclick="fileBackup()">💾 BACKUP</button>
+<button class="btn" style="background:#ef4444;color:#fff" onclick="resetar()">🗑️ RESET</button>
+</footer>
+
+<div id="modalIA" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;padding:20px;overflow:auto">
+<div style="background:#222;padding:20px;border-radius:15px;max-width:500px;margin:30px auto;border:2px solid #ffcc00">
+<h2 style="color:#ffcc00">🤖 IA da Gratidão</h2>
+<input id="perguntaIA" type="text" placeholder="Pergunte algo..." style="width:100%;padding:12px;border-radius:10px;border:none;background:#111;color:#fff;margin-top:12px">
+<div style="display:flex;gap:10px;margin-top:12px">
+<button class="btn btn-yellow" onclick="perguntarIA()" style="flex:1">Perguntar</button>
+<button class="btn btn-white" onclick="fecharIA()" style="flex:1">Fechar</button>
+</div>
+<div id="respostaIA" style="margin-top:12px;background:#111;padding:12px;border-radius:10px;min-height:40px"></div>
+</div>
+</div>
+
+<div id="modalMemoria" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;padding:20px;overflow:auto">
+<div style="background:#222;padding:20px;border-radius:15px;max-width:500px;margin:30px auto">
+<h2>📄 Memória</h2>
+<div id="conteudoMemoria" style="margin-top:12px"></div>
+<button class="btn btn-white" onclick="document.getElementById('modalMemoria').style.display='none'" style="width:100%;margin-top:12px">Fechar</button>
+</div>
+</div>
+
+<script>
+let banco = JSON.parse(localStorage.getItem('bancoGratidao_V71') || '[]');
+function salvarBanco(){ localStorage.setItem('bancoGratidao_V71', JSON.stringify(banco)); }
+function renderizar(){
+let lista = document.getElementById('lista');
+if(banco.length===0){
+lista.innerHTML = `<div style="text-align:center;padding:25px;background:#222;border-radius:12px;margin-top:15px"><h3 style="color:#ffcc00">🙏 Seu Banco está vazio</h3><p style="margin-top:8px">Clique em + GÊNERO</p><button class="btn btn-yellow" onclick="abrirGenero()" style="margin-top:12px">+ Adicionar</button></div>`;
+return;
+}
+let html='';
+banco.slice().reverse().forEach((item,iR)=>{
+let i = banco.length-1-iR;
+html+=`<div style="background:#222;padding:12px;border-radius:10px;margin-bottom:10px;border-left:4px solid #ffcc00"><div style="display:flex;justify-content:space-between"><b style="color:#ffcc00">${item.genero}</b><small>${item.data}</small></div><p style="margin-top:6px">${item.texto}</p><button onclick="removerItem(${i})" style="margin-top:6px;background:#ef4444;color:#fff;border:none;padding:4px 8px;border-radius:6px">Apagar</button></div>`;
+});
+lista.innerHTML=html;
+}
+function removerItem(i){ if(confirm('Apagar?')){ banco.splice(i,1); salvarBanco(); renderizar(); } }
+function filtrar(){
+let t=document.getElementById('pesquisa').value.toLowerCase();
+if(t===''){renderizar();return;}
+let f=banco.filter(b=>b.texto.toLowerCase().includes(t)||b.genero.toLowerCase().includes(t));
+let lista=document.getElementById('lista');
+lista.innerHTML=f.reverse().map(b=>`<div style="background:#222;padding:12px;border-radius:10px;margin-bottom:10px"><b style="color:#ffcc00">${b.genero}</b><p>${b.texto}</p></div>`).join('')||'<p style="text-align:center;padding:20px">Nada encontrado</p>';
+}
+function abrirGenero(){
+let g=prompt('Gênero? Ex: Família, Saúde, Deus');
+if(!g)return;
+let txt=prompt('Sua gratidão de '+g+':');
+if(!txt)return;
+banco.push({genero:g,texto:txt,data:new Date().toLocaleDateString('pt-BR')});
+salvarBanco();renderizar();
+}
+function abrirMemoria(){
+let m=document.getElementById('modalMemoria');
+let c=document.getElementById('conteudoMemoria');
+c.innerHTML=`<p>Total: <b>${banco.length}</b></p>`+banco.map(b=>`<div style="padding:6px;border-bottom:1px solid #333"><b>${b.genero}</b>: ${b.texto}</div>`).join('');
+m.style.display='block';
+}
+function abrirLink(){ let l=prompt('Cole o link:'); if(l) alert('Link: '+l); }
+function fileBackup(){
+let dados=JSON.stringify(banco,null,2);
+let blob=new Blob([dados],{type:"application/json"});
+let url=URL.createObjectURL(blob);
+let a=document.createElement("a");
+a.href=url;a.download="backup-gratidao.json";a.click();
+}
+function resetar(){ if(confirm('Apagar TUDO?')){banco=[];salvarBanco();renderizar();} }
+function convidar(){ let u=window.location.href; if(navigator.share){navigator.share({title:'Banco Gratidão',url:u});}else{prompt('Copie:',u);} }
+function apoiar(){ alert('Obrigado pelo apoio! 🙏 Deus abençoe!'); }
+function abrirIA(){document.getElementById('modalIA').style.display='block';}
+function fecharIA(){document.getElementById('modalIA').style.display='none';}
+function perguntarIA(){
+let p=document.getElementById('perguntaIA').value;
+let r=document.getElementById('respostaIA');
+if(!p){r.innerHTML='Escreva algo!';return;}
+r.innerHTML='🤖 Pensando...';
+setTimeout(()=>{r.innerHTML=`✨ Sobre "${p}": Agradeça hoje por 3 coisas simples que você tem. Qual será a primeira? 🙏`;},800);
+}
+renderizar();
+</script>
+</body>
+</html>
