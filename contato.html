@@ -1,17 +1,62 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Contato - V86 PLAY</title>
-<style>body{font-family:Arial;max-width:600px;margin:30px auto;padding:20px;text-align:center}input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc}button{background:#FFD700;border:none;padding:12px 20px;border-radius:8px;font-weight:bold;width:100%}</style></head>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contato - GRATIFLIX e Banco da Gratidão</title>
+<style>
+body{font-family:Arial;max-width:800px;margin:0 auto;background:#0f1115;color:#eee}
+header{background:#000;padding:20px 5%;border-bottom:3px solid #f5c518}
+header b{color:#f5c518;font-size:22px}
+.box{padding:25px 5%}
+h1{color:#f5c518}label{display:block;margin-top:15px;font-weight:800;font-size:13px;color:#aaa}
+input,textarea{width:100%;padding:12px;margin-top:6px;background:#1e2128;border:1px solid #333;border-radius:8px;color:#fff}
+button{margin-top:15px;background:#f5c518;color:#000;border:none;padding:13px 28px;border-radius:30px;font-weight:900;cursor:pointer;width:100%}
+.card{background:#1e2128;border-radius:12px;padding:18px;margin-top:20px;border-left:4px solid #f5c518}
+footer{background:#000;padding:20px;text-align:center;color:#777;font-size:11px;margin-top:30px}
+a{color:#f5c518;text-decoration:none}
+</style>
+</head>
 <body>
-<h1>📩 Contato - V86 PLAY</h1>
-<p>Fale conosco para suporte, LGPD ou parcerias</p>
-<p><b>Email:</b> SEUEMAIL@gmail.com<br>(troque pelo seu email real)</p>
-<form onsubmit="alert('Obrigado! Responderemos por email.');return false">
-<input type="text" placeholder="Seu nome" required>
-<input type="email" placeholder="Seu email" required>
-<textarea rows="5" placeholder="Sua mensagem - Para LGPD escreva: Solicito exclusão dos meus dados" required></textarea>
-<button type="submit">Enviar Mensagem</button>
+<header><b>🔌 GRATIFLIX</b> | Contato</header>
+<div class="box">
+<h1>Fale com a gente</h1>
+<p>Tem sugestão de trailer, lição de gratidão ou encontrou algum erro? Fala com o Banco da Gratidão. Respondemos em até 24h.</p>
+
+<form onsubmit="enviar(event)">
+<label>jose marcos</label><input id="nome" required placeholder="Seu nome">
+<label>jmkinho42@gmail.com</label><input id="email" type="email" required placeholder="seu@email.com">
+<label>sujestao</label><input id="assunto" required placeholder="Ex: Sugestão de filme, Erro no trailer, Parceria">
+<label>seja grato pelo que voce tem muitos, tem e nao sabem valorizar</label><textarea id="msg" rows="5" required placeholder="Escreva aqui..."></textarea>
+<button type="submit">📨 ENVIAR MENSAGEM</button>
 </form>
-<p><br><a href="index.html">← Voltar</a> | <a href="privacidade.html">Privacidade</a> | <a href="termos.html">Termos</a></p>
+
+<div class="card">
+<b>📧 E-mail direto:</b> contato@bancogratidao.com.br<br>
+<b>📍 Localização:</b> Curitiba - Paraná - Brasil<br>
+<b>⏰ Atendimento:</b> Segunda a Sexta, 9h às 18h (GMT-3)<br>
+<b>🌐 Sites:</b> bancogratidao.com.br | gratiflix-filmes
+</div>
+
+<div class="card">
+<b>🤝 Para donos de conteúdo:</b><br>
+Se você é detentor de direitos de algum trailer e deseja remoção, envie e-mail para contato@bancogratidao.com.br com o link do vídeo e removeremos em até 48h. Todos os vídeos são incorporados via YouTube API oficial.
+</div>
+
+<p style="margin-top:20px"><a href="index.html">⬅ Voltar ao Gratiflix</a> | <a href="sobre.html">Sobre Nós</a> | <a href="politica-de-privacidade.html">Privacidade</a></p>
+</div>
+<footer>GRATIFLIX TV © 2026 - Banco da Gratidão</footer>
+
+<script>
+function enviar(e){
+e.preventDefault();
+let nome=document.getElementById('nome').value;
+let email=document.getElementById('email').value;
+let assunto=document.getElementById('assunto').value;
+let msg=document.getElementById('msg').value;
+let corpo=`Nome: ${nome}%0AEmail: ${email}%0AAssunto: ${assunto}%0AMensagem: ${msg}`;
+window.location.href=`mailto:contato@bancogratidao.com.br?subject=${encodeURIComponent(assunto+' - Gratiflix')}&body=${corpo}`;
+alert('Abrindo seu e-mail para enviar para contato@bancogratidao.com.br');
+}
+</script>
 </body>
 </html>
